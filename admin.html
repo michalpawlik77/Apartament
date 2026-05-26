@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel Admina – Gryf Baltic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ocean: #1a3a5c;
+  --ocean-light: #2a5580;
+  --ocean-pale: #e8f0f8;
+  --sand: #d4b896;
+  --sand-light: #f5ede3;
+  --white: #fdfcfa;
+  --text: #1a1a1a;
+  --text-muted: #5a5a5a;
+  --gold: #c9a96e;
+  --gold-light: #f5ede3;
+  --green: #2e7d32;
+  --green-bg: #e8f5e9;
+  --green-border: #a5d6a7;
+  --red: #c62828;
+  --red-bg: #ffebee;
+  --red-border: #ef9a9a;
+  --gray-bg: #f9f9f9;
+  --border: #e8e4df;
+  --shadow: 0 4px 24px rgba(26,58,92,0.10);
+  --shadow-lg: 0 12px 48px rgba(26,58,92,0.16);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: #f0f4f8;
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── LOGIN SCREEN ── */
+#login-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ocean);
+  background-image:
+    radial-gradient(ellipse at 20% 80%, rgba(201,169,110,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.05) 0%, transparent 50%);
+  padding: 2rem;
+}
+
+.login-box {
+  background: var(--white);
+  border-radius: 6px;
+  padding: 3rem 2.5rem;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+}
+
+.login-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.7rem;
+  font-weight: 300;
+  color: var(--ocean);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.3rem;
+}
+.login-logo em { font-style: italic; color: var(--gold); }
+
+.login-sub {
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+}
+
+.login-box label {
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+.login-box input[type="password"] {
+  width: 100%;
+  padding: 0.9rem 1.1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--white);
+  margin-bottom: 0.5rem;
+  transition: border-color 0.2s;
+  outline: none;
+}
+.login-box input[type="password"]:focus { border-color: var(--ocean); }
+
+.login-error {
+  font-size: 0.8rem;
+  color: var(--red);
+  min-height: 1.2rem;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.btn-login {
+  width: 100%;
+  background: var(--ocean);
+  color: white;
+  border: none;
+  padding: 1rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-login:hover { background: var(--ocean-light); transform: translateY(-1px); }
+.btn-login:active { transform: translateY(0); }
+
+/* ── ADMIN LAYOUT ── */
+#admin-screen { display: none; }
+
+.admin-header {
+  background: var(--ocean);
+  color: white;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+}
+
+.admin-header-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.admin-header-logo span {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-top: 1px;
+}
+
+.admin-header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.btn-logout {
+  background: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.85);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 0.45rem 1.1rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background 0.2s;
+}
+.btn-logout:hover { background: rgba(255,255,255,0.2); }
+
+.btn-view-site {
+  background: var(--gold);
+  color: var(--ocean);
+  border: none;
+  padding: 0.45rem 1.1rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 3px;
+  text-decoration: none;
+  transition: background 0.2s;
+  display: inline-block;
+}
+.btn-view-site:hover { background: #b8904a; }
+
+/* ── TABS ── */
+.admin-tabs {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  padding: 0 2rem;
+  gap: 0;
+  overflow-x: auto;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  padding: 1rem 1.5rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+.tab-btn:hover { color: var(--ocean); }
+.tab-btn.active { color: var(--ocean); border-bottom-color: var(--gold); }
+
+/* ── MAIN CONTENT ── */
+.admin-body {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+}
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── SECTION HEADING ── */
+.panel-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: var(--ocean);
+  margin-bottom: 0.4rem;
+}
+.panel-title em { font-style: italic; color: var(--gold); }
+.panel-desc {
+  font-size: 0.87rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+/* ── CARD ── */
+.card {
+  background: white;
+  border-radius: 6px;
+  padding: 1.8rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+.card-title {
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.2rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ── FORM ELEMENTS ── */
+.field-group {
+  margin-bottom: 1.3rem;
+}
+.field-group label {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+.field-group input[type="text"],
+.field-group input[type="tel"],
+.field-group input[type="email"],
+.field-group textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.92rem;
+  color: var(--text);
+  background: var(--white);
+  transition: border-color 0.2s;
+  outline: none;
+  resize: vertical;
+}
+.field-group input:focus,
+.field-group textarea:focus { border-color: var(--ocean); }
+
+.btn-save {
+  background: var(--ocean);
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-save:hover { background: var(--ocean-light); transform: translateY(-1px); }
+
+.save-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  color: var(--green);
+  margin-left: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.save-indicator.show { opacity: 1; }
+
+/* ── CALENDAR ── */
+.cal-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+.cal-nav-btn {
+  background: var(--ocean);
+  color: white;
+  border: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.cal-nav-btn:hover { background: var(--ocean-light); }
+
+.cal-month-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--ocean);
+  letter-spacing: 0.05em;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  margin-bottom: 1.5rem;
+}
+
+.cal-day-header {
+  text-align: center;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 6px 0;
+}
+
+.cal-cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: transform 0.12s, box-shadow 0.12s;
+  border: 1.5px solid transparent;
+  position: relative;
+  user-select: none;
+}
+
+.cal-cell:not(.past):hover {
+  transform: scale(1.08);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  z-index: 1;
+}
+
+.cal-cell.past { opacity: 0.35; cursor: default; }
+.cal-cell.today { border-color: var(--gold) !important; font-weight: 700; }
+
+.cal-cell.unset {
+  background: #f5f5f5;
+  color: #aaa;
+  border-color: #e0e0e0;
+}
+.cal-cell.available {
+  background: var(--green-bg);
+  color: var(--green);
+  border-color: var(--green-border);
+}
+.cal-cell.occupied {
+  background: var(--red-bg);
+  color: var(--red);
+  border-color: var(--red-border);
+}
+
+.cal-legend {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.cal-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+.cal-legend-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 1.5px solid;
+}
+
+.cal-bulk-controls {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+.btn-bulk {
+  border: none;
+  padding: 0.55rem 1.2rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: opacity 0.2s, transform 0.15s;
+}
+.btn-bulk:hover { opacity: 0.85; transform: translateY(-1px); }
+.btn-bulk.green { background: var(--green-bg); color: var(--green); border: 1.5px solid var(--green-border); }
+.btn-bulk.red   { background: var(--red-bg);   color: var(--red);   border: 1.5px solid var(--red-border); }
+.btn-bulk.gray  { background: #f0f0f0; color: #666; border: 1.5px solid #ddd; }
+
+/* ── STATUS BANNER ── */
+.status-banner {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: var(--ocean);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(100px);
+  opacity: 0;
+  transition: transform 0.3s, opacity 0.3s;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.status-banner.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+.status-banner.success { background: #2e7d32; }
+.status-banner.error   { background: var(--red); }
+
+/* ── STATS BAR ── */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.stat-box {
+  background: white;
+  border-radius: 6px;
+  padding: 1.2rem 1.5rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--gold);
+}
+.stat-box-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--ocean);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+.stat-box-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.stat-box.green-accent { border-left-color: var(--green); }
+.stat-box.green-accent .stat-box-num { color: var(--green); }
+.stat-box.red-accent { border-left-color: var(--red); }
+.stat-box.red-accent .stat-box-num { color: var(--red); }
+
+/* ── PASSWORD CHANGE ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+@media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #ccc; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     EKRAN LOGOWANIA
+══════════════════════════════════════════ -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">Apartament <em>Gryf Baltic</em></div>
+    <div class="login-sub">Panel administracyjny</div>
+
+    <label for="pwd-input">Hasło dostępu</label>
+    <input type="password" id="pwd-input" placeholder="••••••••" autocomplete="current-password">
+    <div class="login-error" id="login-error"></div>
+    <button class="btn-login" onclick="tryLogin()">Zaloguj się</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PANEL ADMINA
+══════════════════════════════════════════ -->
+<div id="admin-screen">
+
+  <!-- Header -->
+  <header class="admin-header">
+    <div class="admin-header-logo">
+      <div>
+        <div>Gryf Baltic</div>
+        <span>Panel Admina</span>
+      </div>
+    </div>
+    <div class="admin-header-right">
+      <a href="apartament-gryf-baltic_7.html" target="_blank" class="btn-view-site">Podgląd strony ↗</a>
+      <button class="btn-logout" onclick="logout()">Wyloguj</button>
+    </div>
+  </header>
+
+  <!-- Tabs -->
+  <div class="admin-tabs">
+    <button class="tab-btn active" onclick="switchTab('dashboard')">📊 Przegląd</button>
+    <button class="tab-btn" onclick="switchTab('calendar')">📅 Kalendarz</button>
+    <button class="tab-btn" onclick="switchTab('content')">✏️ Treści</button>
+    <button class="tab-btn" onclick="switchTab('settings')">⚙️ Ustawienia</button>
+  </div>
+
+  <!-- Body -->
+  <div class="admin-body">
+
+    <!-- ── TAB: DASHBOARD ── -->
+    <div class="tab-panel active" id="tab-dashboard">
+      <h1 class="panel-title">Witaj w panelu <em>Gryf Baltic</em></h1>
+      <p class="panel-desc">Zarządzaj kalendarzem dostępności, treściami strony i ustawieniami apartamentu.</p>
+
+      <div class="stats-bar" id="dashboard-stats">
+        <!-- wypełnione przez JS -->
+      </div>
+
+      <div class="card">
+        <div class="card-title">📅 Najbliższe 7 dni</div>
+        <div id="dashboard-week" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">💡 Szybkie akcje</div>
+        <div style="display:flex;gap:0.8rem;flex-wrap:wrap;">
+          <button class="btn-save" onclick="switchTab('calendar')">Edytuj kalendarz</button>
+          <button class="btn-save" style="background:#666;" onclick="switchTab('content')">Edytuj treści</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TAB: CALENDAR ── -->
+    <div class="tab-panel" id="tab-calendar">
+      <h1 class="panel-title">Kalendarz <em>dostępności</em></h1>
+      <p class="panel-desc">Kliknij na dzień, aby zmienić jego status. Zmiany są zapisywane automatycznie i natychmiast widoczne na stronie. Klikaj wielokrotnie aby przełączać: <strong>Dostępny → Zajęty → Brak informacji</strong>.</p>
+
+      <div class="cal-legend">
+        <div class="cal-legend-item">
+          <div class="cal-legend-dot" style="background:var(--green-bg);border-color:var(--green-border);"></div>
+          Dostępny
+        </div>
+        <div class="cal-legend-item">
+          <div class="cal-legend-dot" style="background:var(--red-bg);border-color:var(--red-border);"></div>
+          Zajęty
+        </div>
+        <div class="cal-legend-item">
+          <div class="cal-legend-dot" style="background:#f5f5f5;border-color:#e0e0e0;"></div>
+          Brak informacji
+        </div>
+        <div class="cal-legend-item">
+          <div class="cal-legend-dot" style="background:white;border-color:var(--gold);border-width:2px;"></div>
+          Dziś
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="cal-nav">
+          <button class="cal-nav-btn" onclick="calPrev()">←</button>
+          <div class="cal-month-label" id="cal-label"></div>
+          <button class="cal-nav-btn" onclick="calNext()">→</button>
+        </div>
+
+        <div class="cal-bulk-controls">
+          <button class="btn-bulk green" onclick="bulkMonth('available')">✓ Cały miesiąc dostępny</button>
+          <button class="btn-bulk red"   onclick="bulkMonth('occupied')">✗ Cały miesiąc zajęty</button>
+          <button class="btn-bulk gray"  onclick="bulkMonth('unset')">○ Wyczyść miesiąc</button>
+        </div>
+
+        <div class="cal-grid" id="cal-grid"></div>
+
+        <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-top:0.5rem;">
+          <button class="btn-save" onclick="showBanner('✓ Zmiany widoczne na stronie','success')">Zapisz i opublikuj</button>
+          <span style="font-size:0.78rem;color:var(--text-muted);">Zmiany zapisują się automatycznie po każdym kliknięciu.</span>
+        </div>
+      </div>
+
+      <!-- Widok 3 miesięcy -->
+      <div class="card">
+        <div class="card-title">📆 Widok kwartału</div>
+        <div id="quarter-view" style="display:flex;gap:1.5rem;flex-wrap:wrap;"></div>
+      </div>
+    </div>
+
+    <!-- ── TAB: CONTENT ── -->
+    <div class="tab-panel" id="tab-content">
+      <h1 class="panel-title">Edycja <em>treści</em></h1>
+      <p class="panel-desc">Zmieniaj teksty widoczne na stronie. Kliknij „Zapisz zmiany" po zakończeniu edycji — zaktualizowane treści pojawią się od razu na stronie.</p>
+
+      <div class="card">
+        <div class="card-title">🏠 Sekcja główna (Hero)</div>
+        <div class="field-group">
+          <label>Opis w sekcji głównej (pod tytułem)</label>
+          <textarea id="f-hero_desc" rows="3" placeholder="Zapraszamy na chwilę wytchnienia..."></textarea>
+        </div>
+        <button class="btn-save" onclick="saveContent('hero_desc','f-hero_desc')">Zapisz zmiany</button>
+        <span class="save-indicator" id="si-hero_desc">✓ Zapisano</span>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📖 O apartamencie</div>
+        <div class="field-group">
+          <label>Akapit 1</label>
+          <textarea id="f-about_p1" rows="3"></textarea>
+        </div>
+        <div class="field-group">
+          <label>Akapit 2</label>
+          <textarea id="f-about_p2" rows="3"></textarea>
+        </div>
+        <button class="btn-save" onclick="saveContentMulti(['about_p1','f-about_p1','about_p2','f-about_p2'],'si-about')">Zapisz zmiany</button>
+        <span class="save-indicator" id="si-about">✓ Zapisano</span>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📞 Dane kontaktowe</div>
+        <div class="two-col">
+          <div class="field-group">
+            <label>Numer telefonu</label>
+            <input type="tel" id="f-contact_tel" placeholder="502 752 819">
+          </div>
+        </div>
+        <button class="btn-save" onclick="saveContent('contact_tel','f-contact_tel')">Zapisz zmiany</button>
+        <span class="save-indicator" id="si-contact_tel">✓ Zapisano</span>
+      </div>
+
+      <div class="card">
+        <div class="card-title">💰 Cennik (opcjonalny)</div>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:1rem;">Tekst cennika lub informacji o cenie widoczny na stronie (jeśli używasz tego pola).</p>
+        <div class="field-group">
+          <label>Tekst cennika</label>
+          <textarea id="f-pricing_text" rows="4" placeholder="Ceny od ... zł za dobę. Kontakt telefoniczny lub e-mailowy."></textarea>
+        </div>
+        <button class="btn-save" onclick="saveContent('pricing_text','f-pricing_text')">Zapisz zmiany</button>
+        <span class="save-indicator" id="si-pricing_text">✓ Zapisano</span>
+      </div>
+
+      <div class="card" id="file-protocol-warning" style="border:2px solid #ffd54f;background:#fffde7;display:none;">
+        <div class="card-title" style="color:#e65100;">⚠️ Tryb lokalny (file://) — wymagany eksport</div>
+        <p style="font-size:0.85rem;color:#7a3a00;line-height:1.8;margin-bottom:1rem;">Strona działa lokalnie z dysku. W tym trybie <strong>admin.html i index.html nie dzielą localStorage</strong> — zmiany nie trafią automatycznie na stronę.<br><br>
+        <strong>Jak to naprawić:</strong><br>
+        1. Po zmianach kliknij <strong>„Eksportuj dane"</strong> poniżej<br>
+        2. Zapisz plik <code>gryf_data.json</code> w tym samym folderze co <code>index.html</code><br>
+        3. Strona główna automatycznie go wczyta<br><br>
+        Docelowo wgraj oba pliki na hosting — wtedy synchronizacja działa sama.</p>
+        <button class="btn-save" style="background:#e65100;" onclick="exportData()">⬇ Eksportuj dane (gryf_data.json)</button>
+      </div>
+
+      <div class="card" style="border:1.5px solid #ffeeba;background:#fffdf5;">
+        <div class="card-title" style="color:#b8860b;">💾 Eksport / Import danych</div>
+        <p style="font-size:0.85rem;color:#7a6000;line-height:1.7;margin-bottom:1rem;">Eksportuj dane kalendarza do pliku JSON — przenieś je na inne urządzenie lub wykonaj kopię zapasową. Możesz też zaimportować wcześniej zapisany plik.</p>
+        <div style="display:flex;gap:0.8rem;flex-wrap:wrap;align-items:center;">
+          <button class="btn-save" style="background:#c9a96e;color:#1a3a5c;" onclick="exportData()">⬇ Eksportuj dane</button>
+          <label class="btn-save" style="background:#555;cursor:pointer;display:inline-block;">⬆ Importuj dane<input type="file" accept=".json" onchange="importData(event)" style="display:none;"></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TAB: SETTINGS ── -->
+    <div class="tab-panel" id="tab-settings">
+      <h1 class="panel-title">Ustawienia <em>panelu</em></h1>
+      <p class="panel-desc">Zmiana hasła dostępu do panelu administracyjnego.</p>
+
+      <div class="card">
+        <div class="card-title">🔐 Zmiana hasła</div>
+        <div class="field-group">
+          <label>Obecne hasło</label>
+          <input type="password" id="s-old-pwd" placeholder="••••••••">
+        </div>
+        <div class="two-col">
+          <div class="field-group">
+            <label>Nowe hasło</label>
+            <input type="password" id="s-new-pwd" placeholder="••••••••">
+          </div>
+          <div class="field-group">
+            <label>Powtórz nowe hasło</label>
+            <input type="password" id="s-new-pwd2" placeholder="••••••••">
+          </div>
+        </div>
+        <div id="pwd-change-error" style="font-size:0.82rem;color:var(--red);min-height:1.2rem;margin-bottom:0.8rem;"></div>
+        <button class="btn-save" onclick="changePassword()">Zmień hasło</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🗑️ Wyczyść dane</div>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:1rem;">Usuwa WSZYSTKIE dane kalendarza i treści z pamięci przeglądarki. Tej operacji nie można cofnąć.</p>
+        <button class="btn-save" style="background:#c62828;" onclick="clearAllData()">Wyczyść wszystkie dane</button>
+      </div>
+    </div>
+
+  </div><!-- /admin-body -->
+
+</div><!-- /admin-screen -->
+
+<!-- Status Banner -->
+<div class="status-banner" id="status-banner"></div>
+
+<script>
+// ══════════════════════════════════════════════
+// JSONBIN CONFIG
+// ══════════════════════════════════════════════
+const BIN_ID  = '6a161f7ef47d5c455c3aeeeb';
+const API_KEY = '$2a$10$uxReg9Qf2iSjT3vXLg4fruZs2l1uIcH1jVXtJ6OtZZL7iQrDWlequ';
+const BIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+const DEFAULT_PWD = 'gryf2024';
+
+// Cache lokalny żeby UI reagował natychmiast
+let _cache = null;
+
+async function getData() {
+  if (_cache) return _cache;
+  try {
+    const r = await fetch(BIN_URL + '/latest', {
+      headers: { 'X-Master-Key': API_KEY }
+    });
+    const json = await r.json();
+    _cache = json.record || {};
+    return _cache;
+  } catch(e) {
+    return _cache || {};
+  }
+}
+
+async function setData(d) {
+  _cache = d;
+  try {
+    await fetch(BIN_URL, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Master-Key': API_KEY
+      },
+      body: JSON.stringify(d)
+    });
+  } catch(e) {
+    console.error('JSONBin save error', e);
+  }
+}
+
+// ══════════════════════════════════════════════
+// LOGIN
+// ══════════════════════════════════════════════
+async function tryLogin() {
+  const pwd = document.getElementById('pwd-input').value;
+  document.getElementById('login-error').textContent = 'Łączenie...';
+  const data = await getData();
+  const storedPwd = data.password || DEFAULT_PWD;
+  if (pwd === storedPwd) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('admin-screen').style.display = 'block';
+    initAdmin();
+  } else {
+    document.getElementById('login-error').textContent = 'Nieprawidłowe hasło. Spróbuj ponownie.';
+    document.getElementById('pwd-input').focus();
+  }
+}
+
+function logout() {
+  document.getElementById('admin-screen').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('pwd-input').value = '';
+  document.getElementById('login-error').textContent = '';
+}
+
+document.getElementById('pwd-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') tryLogin();
+});
+
+// ══════════════════════════════════════════════
+// TABS
+// ══════════════════════════════════════════════
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+  if (name === 'calendar') renderCalendar();
+  if (name === 'dashboard') renderDashboard();
+}
+
+// ══════════════════════════════════════════════
+// CALENDAR
+// ══════════════════════════════════════════════
+const MONTHS_PL = ['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec',
+                   'Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'];
+const DAYS_PL   = ['Pn','Wt','Śr','Cz','Pt','Sb','Nd'];
+
+let calYear, calMonth;
+
+function calKey(y, m, d) {
+  return `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+}
+
+function getCalData() {
+  return (_cache && _cache.calendar) ? _cache.calendar : {};
+}
+async function setCalData(cal) {
+  const d = await getData();
+  d.calendar = cal;
+  await setData(d);
+}
+
+async function cycleStatus(key) {
+  const cal = getCalData();
+  const cur = cal[key] || 'unset';
+  const next = cur === 'unset' ? 'available' : cur === 'available' ? 'occupied' : 'unset';
+  if (next === 'unset') { delete cal[key]; } else { cal[key] = next; }
+  renderCalendar(); // natychmiastowy feedback z cache
+  renderQuarterView();
+  renderDashboard();
+  await setCalData(cal);
+  showBanner('✓ Zapisano', 'success');
+}
+
+async function bulkMonth(status) {
+  const cal = getCalData();
+  const today = new Date(); today.setHours(0,0,0,0);
+  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+  for (let d = 1; d <= daysInMonth; d++) {
+    const key = calKey(calYear, calMonth, d);
+    const dt = new Date(calYear, calMonth, d);
+    if (dt < today) continue;
+    if (status === 'unset') { delete cal[key]; }
+    else { cal[key] = status; }
+  }
+  renderCalendar();
+  renderQuarterView();
+  renderDashboard();
+  await setCalData(cal);
+  showBanner('✓ Zmiany zastosowane dla całego miesiąca', 'success');
+}
+
+function renderCalendar() {
+  if (!calYear) {
+    const now = new Date();
+    calYear = now.getFullYear();
+    calMonth = now.getMonth();
+  }
+  document.getElementById('cal-label').textContent = `${MONTHS_PL[calMonth]} ${calYear}`;
+
+  const grid = document.getElementById('cal-grid');
+  grid.innerHTML = '';
+
+  // Headers
+  DAYS_PL.forEach(d => {
+    const h = document.createElement('div');
+    h.className = 'cal-day-header';
+    h.textContent = d;
+    grid.appendChild(h);
+  });
+
+  const cal = getCalData();
+  let startDow = new Date(calYear, calMonth, 1).getDay();
+  startDow = startDow === 0 ? 6 : startDow - 1;
+  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+  const today = new Date(); today.setHours(0,0,0,0);
+
+  for (let i = 0; i < startDow; i++) grid.appendChild(document.createElement('div'));
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const key = calKey(calYear, calMonth, d);
+    const status = cal[key] || 'unset';
+    const dt = new Date(calYear, calMonth, d);
+    const isPast = dt < today;
+    const isToday = dt.getTime() === today.getTime();
+
+    const cell = document.createElement('div');
+    cell.className = `cal-cell ${status}${isPast ? ' past' : ''}${isToday ? ' today' : ''}`;
+    cell.textContent = d;
+
+    const statusLabel = status === 'available' ? 'Dostępny' : status === 'occupied' ? 'Zajęty' : 'Brak info';
+    cell.title = `${d} ${MONTHS_PL[calMonth]} — ${statusLabel}${!isPast ? '\nKliknij aby zmienić' : ''}`;
+
+    if (!isPast) {
+      cell.addEventListener('click', () => cycleStatus(key));
+    }
+    grid.appendChild(cell);
+  }
+}
+
+window.calPrev = function() {
+  calMonth--;
+  if (calMonth < 0) { calMonth = 11; calYear--; }
+  renderCalendar();
+};
+window.calNext = function() {
+  calMonth++;
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  renderCalendar();
+};
+
+// Quarter view (mini)
+function renderQuarterView() {
+  const container = document.getElementById('quarter-view');
+  if (!container) return;
+  container.innerHTML = '';
+  const now = new Date();
+  const cal = getCalData();
+  for (let offset = 0; offset < 3; offset++) {
+    const yr = now.getFullYear() + Math.floor((now.getMonth() + offset) / 12);
+    const mo = (now.getMonth() + offset) % 12;
+    container.appendChild(buildMiniMonth(yr, mo, cal, now));
+  }
+}
+
+function buildMiniMonth(yr, mo, cal, today) {
+  today = today || new Date(); today.setHours ? today.setHours(0,0,0,0) : null;
+
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'flex:1;min-width:200px;';
+
+  const title = document.createElement('div');
+  title.style.cssText = 'font-family:Cormorant Garamond,serif;font-size:1rem;color:var(--ocean);font-weight:600;margin-bottom:0.6rem;letter-spacing:0.05em;';
+  title.textContent = `${MONTHS_PL[mo]} ${yr}`;
+  wrap.appendChild(title);
+
+  const grid = document.createElement('div');
+  grid.style.cssText = 'display:grid;grid-template-columns:repeat(7,1fr);gap:2px;';
+
+  DAYS_PL.forEach(d => {
+    const h = document.createElement('div');
+    h.style.cssText = 'text-align:center;font-size:0.6rem;color:#aaa;font-weight:600;padding:2px 0;';
+    h.textContent = d;
+    grid.appendChild(h);
+  });
+
+  let startDow = new Date(yr, mo, 1).getDay();
+  startDow = startDow === 0 ? 6 : startDow - 1;
+  for (let i = 0; i < startDow; i++) grid.appendChild(document.createElement('div'));
+
+  const daysInMonth = new Date(yr, mo + 1, 0).getDate();
+  const todayTs = new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime();
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const key = calKey(yr, mo, d);
+    const status = cal[key] || 'unset';
+    const dt = new Date(yr, mo, d);
+    const isPast = dt.getTime() < todayTs;
+
+    const cell = document.createElement('div');
+    cell.style.cssText = `aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:3px;font-size:0.72rem;`;
+
+    if (isPast) {
+      cell.style.background = '#f5f5f5';
+      cell.style.color = '#ccc';
+    } else if (status === 'available') {
+      cell.style.background = 'var(--green-bg)';
+      cell.style.color = 'var(--green)';
+      cell.style.fontWeight = '500';
+    } else if (status === 'occupied') {
+      cell.style.background = 'var(--red-bg)';
+      cell.style.color = 'var(--red)';
+      cell.style.fontWeight = '600';
+    } else {
+      cell.style.background = '#f0f0f0';
+      cell.style.color = '#bbb';
+    }
+    cell.textContent = d;
+    grid.appendChild(cell);
+  }
+  wrap.appendChild(grid);
+  return wrap;
+}
+
+// ══════════════════════════════════════════════
+// CONTENT EDITING
+// ══════════════════════════════════════════════
+const CONTENT_DEFAULTS = {
+  hero_desc: 'Zapraszamy na chwilę wytchnienia. Gwarantujemy mnóstwo przestrzeni i domową atmosferę. Zaledwie 300 metrów dzieli Was od szerokiej, piaszczystej plaży.',
+  about_p1: 'Nasz apartament to idealne miejsce na rodzinne wakacje nad Bałtykiem. Przestronny, w pełni wyposażony, z domową atmosferą i wyjątkowym widokiem z balkonu.',
+  about_p2: 'Zlokalizowany na II piętrze nowoczesnego budynku nad Pasażem Handlowym Gryf, zapewnia doskonałe połączenie wygody i bliskości zarówno plaży, jak i pełnej infrastruktury miejskiej.',
+  contact_tel: '502 752 819',
+  pricing_text: ''
+};
+
+async function loadContentFields() {
+  const d = await getData();
+  const content = d.content || {};
+  for (const [key, def] of Object.entries(CONTENT_DEFAULTS)) {
+    const el = document.getElementById('f-' + key);
+    if (el) el.value = content[key] !== undefined ? content[key] : def;
+  }
+}
+
+async function saveContent(key, fieldId) {
+  const val = document.getElementById(fieldId).value;
+  const d = await getData();
+  if (!d.content) d.content = {};
+  d.content[key] = val;
+  await setData(d);
+  flashIndicator('si-' + key);
+  showBanner('✓ Zapisano', 'success');
+}
+
+async function saveContentMulti(pairs, indicatorId) {
+  const d = await getData();
+  if (!d.content) d.content = {};
+  for (let i = 0; i < pairs.length; i += 2) {
+    d.content[pairs[i]] = document.getElementById(pairs[i+1]).value;
+  }
+  await setData(d);
+  flashIndicator(indicatorId);
+  showBanner('✓ Zapisano', 'success');
+}
+
+function flashIndicator(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2500);
+}
+
+// ══════════════════════════════════════════════
+// DASHBOARD
+// ══════════════════════════════════════════════
+function renderDashboard() {
+  const cal = getCalData();
+  const now = new Date(); now.setHours(0,0,0,0);
+  let available30 = 0, occupied30 = 0, unset30 = 0;
+
+  for (let i = 0; i < 30; i++) {
+    const dt = new Date(now.getFullYear(), now.getMonth(), now.getDate() + i);
+    const key = calKey(dt.getFullYear(), dt.getMonth(), dt.getDate());
+    const s = cal[key] || 'unset';
+    if (s === 'available') available30++;
+    else if (s === 'occupied') occupied30++;
+    else unset30++;
+  }
+
+  document.getElementById('dashboard-stats').innerHTML = `
+    <div class="stat-box green-accent">
+      <div class="stat-box-num">${available30}</div>
+      <div class="stat-box-label">Wolnych dni (30 dni)</div>
+    </div>
+    <div class="stat-box red-accent">
+      <div class="stat-box-num">${occupied30}</div>
+      <div class="stat-box-label">Zajętych dni (30 dni)</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-box-num">${unset30}</div>
+      <div class="stat-box-label">Bez statusu (30 dni)</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-box-num">${Object.keys(cal).length}</div>
+      <div class="stat-box-label">Dni z oznaczeniem</div>
+    </div>
+  `;
+
+  // Najbliższe 7 dni
+  const week = document.getElementById('dashboard-week');
+  week.innerHTML = '';
+  for (let i = 0; i < 7; i++) {
+    const dt = new Date(now.getFullYear(), now.getMonth(), now.getDate() + i);
+    const key = calKey(dt.getFullYear(), dt.getMonth(), dt.getDate());
+    const s = cal[key] || 'unset';
+    const dayNames = ['Nd','Pn','Wt','Śr','Cz','Pt','Sb'];
+    const label = i === 0 ? 'Dziś' : dayNames[dt.getDay()];
+    const bg = s === 'available' ? 'var(--green-bg)' : s === 'occupied' ? 'var(--red-bg)' : '#f5f5f5';
+    const col = s === 'available' ? 'var(--green)' : s === 'occupied' ? 'var(--red)' : '#aaa';
+    const statusText = s === 'available' ? 'Wolny' : s === 'occupied' ? 'Zajęty' : '—';
+    week.innerHTML += `
+      <div style="text-align:center;background:${bg};border-radius:6px;padding:0.8rem 0.6rem;min-width:72px;border:1.5px solid ${col}30;">
+        <div style="font-size:0.68rem;color:#888;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;">${label}</div>
+        <div style="font-size:1.1rem;font-weight:600;color:var(--ocean);">${dt.getDate()}</div>
+        <div style="font-size:0.7rem;color:${col};font-weight:500;margin-top:4px;">${statusText}</div>
+      </div>
+    `;
+  }
+}
+
+// ══════════════════════════════════════════════
+// PASSWORD CHANGE
+// ══════════════════════════════════════════════
+async function changePassword() {
+  const oldPwd  = document.getElementById('s-old-pwd').value;
+  const newPwd  = document.getElementById('s-new-pwd').value;
+  const newPwd2 = document.getElementById('s-new-pwd2').value;
+  const errEl   = document.getElementById('pwd-change-error');
+  const d       = await getData();
+  const current = d.password || DEFAULT_PWD;
+
+  if (oldPwd !== current) { errEl.textContent = 'Obecne hasło jest nieprawidłowe.'; return; }
+  if (newPwd.length < 6)  { errEl.textContent = 'Nowe hasło musi mieć co najmniej 6 znaków.'; return; }
+  if (newPwd !== newPwd2) { errEl.textContent = 'Nowe hasła nie są identyczne.'; return; }
+
+  d.password = newPwd;
+  await setData(d);
+  errEl.textContent = '';
+  document.getElementById('s-old-pwd').value = '';
+  document.getElementById('s-new-pwd').value = '';
+  document.getElementById('s-new-pwd2').value = '';
+  showBanner('✓ Hasło zostało zmienione', 'success');
+}
+
+// ══════════════════════════════════════════════
+// CLEAR ALL DATA
+// ══════════════════════════════════════════════
+async function clearAllData() {
+  if (!confirm('Czy na pewno chcesz usunąć WSZYSTKIE dane?\n\nKalendar i treści zostaną wyczyszczone. Tej operacji nie można cofnąć.')) return;
+  const d = await getData();
+  const pwd = d.password;
+  const nd = {}; if (pwd) nd.password = pwd;
+  await setData(nd);
+  showBanner('✓ Dane zostały wyczyszczone', 'success');
+  renderDashboard();
+  loadContentFields();
+}
+
+// ══════════════════════════════════════════════
+// STATUS BANNER
+// ══════════════════════════════════════════════
+let bannerTimer;
+function showBanner(msg, type) {
+  const el = document.getElementById('status-banner');
+  el.textContent = msg;
+  el.className = `status-banner ${type || ''} show`;
+  clearTimeout(bannerTimer);
+  bannerTimer = setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+// ══════════════════════════════════════════════
+// EXPORT / IMPORT JSON
+// ══════════════════════════════════════════════
+async function exportData() {
+  const d = await getData();
+  const blob = new Blob([JSON.stringify(d, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'gryf_data.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  showBanner('✓ Plik gryf_data.json pobrany', 'success');
+}
+
+async function importData(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = async function(e) {
+    try {
+      const imported = JSON.parse(e.target.result);
+      const currentData = await getData();
+      if (currentData.password) imported.password = currentData.password;
+      await setData(imported);
+      renderDashboard();
+      renderCalendar();
+      renderQuarterView();
+      loadContentFields();
+      showBanner('✓ Dane zaimportowane pomyślnie', 'success');
+    } catch(err) {
+      showBanner('✗ Błąd importu — nieprawidłowy plik JSON', 'error');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+// ══════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════
+async function initAdmin() {
+  const now = new Date();
+  calYear  = now.getFullYear();
+  calMonth = now.getMonth();
+
+  showBanner('⏳ Wczytywanie danych...', '');
+  await getData(); // załaduj cache
+  renderDashboard();
+  await loadContentFields();
+  renderQuarterView();
+  renderCalendar();
+  showBanner('✓ Dane wczytane', 'success');
+}
+</script>
+</body>
+</html>

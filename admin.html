@@ -834,6 +834,15 @@ body {
         <span class="save-indicator" id="si-contact">✓ Zapisano</span>
       </div>
 
+      <!-- REGULAMIN PEŁNY -->
+      <div class="card">
+        <div class="card-title">📜 Regulamin apartamentu (pełny — 16 punktów)</div>
+        <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:1.2rem;">Możesz edytować każdy punkt regulaminu. Możesz używać <code>&lt;strong&gt;tekst&lt;/strong&gt;</code> aby pogrubić ważne fragmenty (np. kwoty, godziny).</p>
+        <div id="regulamin-editor"></div>
+        <button class="btn-save" onclick="saveRegulamin()">Zapisz regulamin</button>
+        <span class="save-indicator" id="si-regulamin">✓ Zapisano</span>
+      </div>
+
       <!-- CENNIK -->
       <div class="card">
         <div class="card-title">💰 Cennik</div>
@@ -1189,12 +1198,57 @@ const CONTENT_DEFAULTS = {
   attr7_icon: '🌊', attr7_title: 'Molo w Międzyzdrojach', attr7_desc: 'Jedno z najdłuższych moli na polskim wybrzeżu, idealne na poranny lub wieczorny spacer',
   attr8_icon: '🔭', attr8_title: 'Wzgórze Gosań', attr8_desc: 'Punkt widokowy z panoramą Zalewu Szczecińskiego i okolicznych wysp',
   attr9_icon: '🐚', attr9_title: 'Muzeum Przyrodnicze', attr9_desc: 'Interesująca ekspozycja poświęcona przyrodzie Wolińskiego Parku Narodowego',
-  contact_desc: 'Zapytania o cennik i dostępność terminów prosimy kierować telefonicznie lub mailowo. Odpowiemy tak szybko jak to możliwe!',
-  contact_tel: '502 752 819',
+  contact_desc: 'Zapytania o cennik i dostępność terminów prosimy kierować telefonicznie lub mailowo. Odpowiemy tak szybko jak to możliwe!',  contact_tel: '502 752 819',
   contact_email: 'gryfbaltic@gmail.com',
   contact_address: 'ul. Gryfa Pomorskiego 23/206\n72-500 Międzyzdroje',
   pricing_text: ''
 };
+
+const REGULAMIN_DEFAULTS = [
+  'Doba hotelowa rozpoczyna się o godzinie <strong>16:00</strong> i kończy o godzinie <strong>10:00</strong>. Prosimy do tego czasu o zwolnienie apartamentu i umieszczenie klucza do drzwi wejściowych w sejfie. Pozostały komplet kluczy proszę zostawić na stole w salonie. Za niewymeldowanie się do godziny 10:00 (bez uprzedniego ustalenia z właścicielem mieszkania), będzie pobrana opłata dodatkowa w wysokości kolejnej doby hotelowej bez prawa do zamieszkania.',
+  'Należy przestrzegać ciszy nocnej, która obowiązuje w godzinach <strong>22:00–6:00</strong>. Jeżeli przyjmują Państwo gości, są oni proszeni o opuszczenie lokalu przed godziną 22:00. W przypadku zignorowania tej zasady będziemy zmuszeni obciążyć Państwo opłatą dodatkową w wysokości pobytu dodatkowej liczby osób w apartamencie.',
+  'W przypadku szczególnego nieutrzymania czystości, które skutkować będzie wykonaniem dodatkowych prac przez personel sprzątający przekraczających 2 godziny, Gość zostanie obciążony opłatą dodatkową w wysokości <strong>150 zł</strong> za każdą dodatkową godzinę pracy personelu sprzątającego.',
+  'Zabrania się organizowania imprez zakłócających porządek w budynku i będących przyczyną skarg mieszkańców bądź wezwania policji. W takim przypadku Gość zostanie obciążony opłatą dodatkową w wysokości <strong>500 zł</strong>. Obsługa ma prawo do odstąpienia od umowy najmu ze skutkiem natychmiastowym z zachowaniem pełnej opłaty.',
+  'Osoba wynajmująca odpowiada za zachowanie współlokatorów oraz wszelkie szkody powstałe z winy użytkowników. Prosimy po zameldowaniu sprawdzić apartament i ewentualne uszkodzenia zgłosić telefonicznie lub mailowo. Brak zgłoszenia oznacza akceptację stanu apartamentu.',
+  'Palenie tytoniu, wyrobów tytoniowo-podobnych oraz świec w apartamencie jest <strong>zabronione</strong>. Złamanie zakazu skutkuje opłatą dodatkową w wysokości <strong>500 zł</strong>.',
+  'Prosimy pamiętać o zamykaniu drzwi i okien przy wychodzeniu z apartamentu. Nie ponosimy odpowiedzialności za kradzieże spowodowane niewłaściwym zabezpieczeniem mieszkania.',
+  'Goście zostaną obciążeni opłatami wynikającymi z kosztów napraw zniszczeń wyposażenia niewynikających z normalnego użytkowania apartamentu.',
+  'W przypadku notorycznego zachowania niezgodnego z regulaminem właściciel ma prawo wymeldować Gościa nie zwracając opłaty za wynajem.',
+  'W przypadku rezygnacji z rezerwacji lub jej części w trakcie pobytu, płatności nie podlegają zwrotowi.',
+  'Nieuzasadnione wezwanie obsługi skutkuje opłatą dodatkową w wysokości <strong>200 zł</strong>.',
+  'Zgubienie klucza do drzwi wejściowych wiąże się z wymianą całego zamka i opłatą <strong>500 zł</strong>. Zgubienie pozostałych kluczy (parking, śmietnik, klatka): <strong>50 zł/szt.</strong>',
+  'Przyjazd z psem/kotem dopuszczalny jedynie za zgodą właściciela i podlega opłacie <strong>100 zł/doba</strong>. W przypadku zatajenia przyjazdu ze zwierzęciem zostanie pobrana opłata 100 zł/doba + <strong>400 zł</strong> opłaty karnej.',
+  'W celu dokonania rezerwacji należy wpłacić <strong>30%</strong> całkowitej wartości pobytu w ciągu 2 dni od momentu rezerwacji. Pozostałą kwotę należy wpłacić na 2 dni przed planowanym przyjazdem.',
+  'Rezygnacja z pobytu na <strong>14 dni</strong> przed planowanym przyjazdem skutkuje utratą wpłaconej zaliczki (30%).',
+  'Odwołanie rezerwacji na dzień przed przyjazdem lub niestawienie się w obiekcie skutkuje przepadkiem <strong>pełnej kwoty</strong> rezerwacji.'
+];
+
+function buildRegulaminEditor(regData) {
+  const container = document.getElementById('regulamin-editor');
+  if (!container) return;
+  container.innerHTML = '';
+  for (let i = 0; i < 16; i++) {
+    const val = (regData && regData[i] !== undefined) ? regData[i] : REGULAMIN_DEFAULTS[i];
+    const wrap = document.createElement('div');
+    wrap.className = 'field-group';
+    wrap.innerHTML = `<label>Punkt ${i+1}</label>
+      <textarea id="f-reg${i+1}" rows="3">${val.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</textarea>
+      <div style="font-size:0.72rem;color:#aaa;margin-top:0.3rem;">Użyj &lt;strong&gt;tekst&lt;/strong&gt; aby pogrubić</div>`;
+    container.appendChild(wrap);
+  }
+}
+
+async function saveRegulamin() {
+  const d = await getData();
+  d.regulamin = [];
+  for (let i = 0; i < 16; i++) {
+    const el = document.getElementById('f-reg' + (i+1));
+    if (el) d.regulamin[i] = el.value.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>');
+  }
+  await setData(d);
+  flashIndicator('si-regulamin');
+  showBanner('✓ Regulamin zapisany', 'success');
+}
 
 function buildAttractionsEditor(content) {
   const container = document.getElementById('attractions-editor');
@@ -1238,6 +1292,7 @@ async function loadContentFields() {
     if (el) el.value = content[key] !== undefined ? content[key] : def;
   }
   buildAttractionsEditor(content);
+  buildRegulaminEditor(d.regulamin || null);
 }
 
 async function saveContent(key, fieldId) {

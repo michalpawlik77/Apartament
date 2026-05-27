@@ -845,7 +845,10 @@ footer span { color: var(--gold); }
       <span class="badge" data-editable="badge3">🅿️ Prywatny parking</span>
       <span class="badge" data-editable="badge4">🛗 Winda</span>
     </div>
-    <a href="#kontakt" class="btn-primary">Zapytaj o termin</a>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-top:0.5rem;">
+      <a href="#kontakt" class="btn-primary" style="width:220px;text-align:center;">Zapytaj o termin</a>
+      <a href="#dostepnosc" class="btn-primary" style="width:220px;text-align:center;background:transparent;border:2px solid rgba(255,255,255,0.7);color:white;box-shadow:none;">Sprawdź dostępność</a>
+    </div>
   </div>
   <div class="scroll-indicator">
     <div class="scroll-line"></div>
@@ -1093,7 +1096,7 @@ footer span { color: var(--gold); }
           <span class="ltag">🅿️ Własny parking</span>
         </div>
 
-        <a href="mailto:gryfbaltic@gmail.com" class="btn-primary" style="display:block;text-align:center;width:100%;box-sizing:border-box;">Sprawdź dostępność</a>
+        <a href="#dostepnosc" class="btn-primary" style="display:block;text-align:center;width:100%;box-sizing:border-box;">Sprawdź dostępność</a>
       </div>
             <div class="location-image location-slideshow">
         <div class="slide active"><img src="images/photo_08.jpg" alt="Pasaż Gryf w dzień"></div>
@@ -1243,9 +1246,7 @@ footer span { color: var(--gold); }
         </div>
       </div>
 
-      <div style="text-align:center;margin-top:2rem;">
-        <a href="#kontakt" class="btn-primary" style="display:inline-block;">Zapytaj o termin</a>
-      </div>
+
     </div>
   </div>
 </section>

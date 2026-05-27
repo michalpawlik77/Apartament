@@ -614,20 +614,130 @@ footer span { color: var(--gold); }
 }
 
 @media (max-width: 900px) {
-  nav { padding: 1rem 1.5rem; }
+  /* ── NAV ── */
+  nav { padding: 1rem 1.2rem; }
   .nav-links { display: none; }
-  .about-grid, .location-grid, .room-panel.active { grid-template-columns: 1fr; }
-  .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
-  .gallery-item:first-child { grid-row: span 1; }
-  .amenities-grid { grid-template-columns: repeat(2, 1fr); }
-  .attractions-list { grid-template-columns: 1fr 1fr; }
-  .rules-grid { grid-template-columns: 1fr; }
-  .about-image-stack { height: 320px; }
+
+  /* ── HAMBURGER ── */
+  .nav-hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+    z-index: 1001;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: white;
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── MOBILE MENU LINKS ── */
+  .mobile-menu a {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: white;
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    padding: 0.8rem 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    width: 100%;
+    text-align: center;
+    transition: color 0.2s;
+  }
+  .mobile-menu a:last-child { border-bottom: none; }
+  .mobile-menu a:active { color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero { min-height: 100svh; }
+  .hero-content { padding: 0 1.5rem; padding-top: 5rem; }
+  .hero-title { font-size: clamp(2.8rem, 12vw, 4.5rem); }
+  .hero-subtitle { font-size: 1rem; }
+  .hero-desc { font-size: 0.9rem; max-width: 100%; }
+  .hero-badges { flex-wrap: wrap; gap: 0.5rem; }
+  .badge { font-size: 0.72rem; padding: 0.45rem 0.9rem; }
+  .scroll-indicator { display: none; }
+
+  /* ── SECTIONS ── */
+  section { padding: 3.5rem 0; }
+  .container { padding: 0 1.2rem; }
+  .section-title { font-size: clamp(2rem, 8vw, 2.8rem); }
+
+  /* ── ABOUT ── */
+  .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .about-image-stack { height: 280px; }
   .about-img-secondary { display: none; }
   .about-img-main { right: 0; bottom: 0; }
+  .about-stats { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .stat-num { font-size: 2.2rem; }
+
+  /* ── GALLERY ── */
+  .gallery-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 160px 160px 160px 140px;
+  }
+
+  /* ── AMENITIES ── */
+  .amenities-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+  .amenity-card { padding: 1.2rem 1rem; }
+  .amenity-icon { font-size: 1.5rem; margin-bottom: 0.6rem; }
+  .amenity-name { font-size: 0.72rem; }
+  .amenity-desc { font-size: 0.78rem; }
+
+  /* ── ROOMS ── */
+  .rooms-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .room-tab { padding: 0.8rem 1.2rem; font-size: 0.7rem; white-space: nowrap; }
+  .room-panel.active { grid-template-columns: 1fr; gap: 1.5rem; }
+  .room-panel img { height: 240px; }
+  #room-lazienka img { height: auto; max-height: 320px; }
+  .room-info h3 { font-size: 1.6rem; }
+
+  /* ── LOCATION ── */
+  .location-grid { grid-template-columns: 1fr !important; gap: 2rem; }
+  .location-slideshow { height: 260px; }
+  .location-left { margin-top: 0; }
+
+  /* ── ATTRACTIONS ── */
+  .attractions-list { grid-template-columns: 1fr; gap: 0.8rem; }
+  .attraction-item { padding: 1rem 1.2rem; }
+
+  /* ── RULES ── */
+  .rules-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .rule-card { padding: 1.2rem 1.4rem; }
+
+  /* ── CALENDAR ── */
+  #dostepnosc .container { padding: 0 0.8rem; }
+  #gc-grid { gap: 3px; }
+  #gc-grid > div { font-size: 0.78rem; border-radius: 5px; }
+  .gc-legend { flex-wrap: wrap; gap: 0.6rem; justify-content: center; }
+
+  /* ── CONTACT ── */
+  .contact-grid { grid-template-columns: 1fr !important; gap: 2rem; }
+  .contact-map { height: 250px; border-radius: 4px; overflow: hidden; }
+  .contact-map iframe { width: 100%; height: 100%; }
+  .contact-desc { font-size: 0.9rem; }
+
+  /* ── FOOTER ── */
+  footer { padding: 1.5rem 1.2rem; font-size: 0.78rem; text-align: center; }
 }
 
-/* LOCATION SLIDESHOW */
+/* hamburger hidden on desktop */
+.nav-hamburger { display: none; }
+.mobile-menu { display: flex; flex-direction: column; align-items: center; justify-content: center; position: fixed; inset: 0; background: var(--ocean); z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.35s; gap: 0; }
+.mobile-menu.open { opacity: 1; pointer-events: all; }
 .location-slideshow {
   position: relative;
   overflow: hidden;
@@ -701,7 +811,20 @@ footer span { color: var(--gold); }
     <li><a href="#dostepnosc">Dostępność</a></li>
     <li><a href="#kontakt">Kontakt</a></li>
   </ul>
+  <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#o-apartamencie" onclick="closeMenu()">Apartament</a>
+  <a href="#galeria" onclick="closeMenu()">Galeria</a>
+  <a href="#udogodnienia" onclick="closeMenu()">Udogodnienia</a>
+  <a href="#lokalizacja" onclick="closeMenu()">Lokalizacja</a>
+  <a href="#dostepnosc" onclick="closeMenu()">Dostępność</a>
+  <a href="#kontakt" onclick="closeMenu()">Kontakt</a>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="home">
@@ -738,7 +861,7 @@ footer span { color: var(--gold); }
         <span class="section-label">O apartamencie</span>
         <h2 class="section-title">Komfort i przestrzeń<br><em>dla całej rodziny</em></h2>
         <div class="divider"></div>
-        <p data-editable="about_p1">Nasz apartament to idealne miejsce na rodzinne wakacje nad Bałtykiem. Przestronny, w pełni wyposażony, z domową atmosferą i wyjątkowym widokiem z balkonu.</p>
+        <p data-editable="about_p1">Nasz apartament to idealne miejsce na rodzinne wakacje nad Bałtykiem. Przestronny, w pełni wyposażony, z domową atmosferą.</p>
         <p data-editable="about_p2">Zlokalizowany na II piętrze nowoczesnego budynku nad Pasażem Handlowym Gryf, zapewnia doskonałe połączenie wygody i bliskości zarówno plaży, jak i pełnej infrastruktury miejskiej.</p>
         <div class="about-stats">
           <div class="stat">
@@ -820,7 +943,7 @@ footer span { color: var(--gold); }
       <div class="amenity-card">
         <span class="amenity-icon">🍳</span>
         <div class="amenity-name">Pełna kuchnia</div>
-        <div class="amenity-desc">Płyta indukcyjna, lodówka, zmywarka, mikrofalówka, ekspres, toster</div>
+        <div class="amenity-desc">Płyta indukcyjna, lodówka, zmywarka, mikrofalówka, toster</div>
       </div>
       <div class="amenity-card">
         <span class="amenity-icon">🛏️</span>
@@ -830,7 +953,7 @@ footer span { color: var(--gold); }
       <div class="amenity-card">
         <span class="amenity-icon">🌅</span>
         <div class="amenity-name">Balkon</div>
-        <div class="amenity-desc">Przestronny balkon z meblami tarasowymi — idealne miejsce na poranną kawę z widokiem</div>
+        <div class="amenity-desc">Przestronny balkon z meblami tarasowymi</div>
       </div>
       <div class="amenity-card">
         <span class="amenity-icon">🏠</span>
@@ -878,7 +1001,7 @@ footer span { color: var(--gold); }
           <li>Smart TV</li>
           <li>Stół jadalniany z krzesłami</li>
           <li>Aneks kuchenny — płyta indukcyjna, lodówka, zmywarka</li>
-          <li>Ekspres do kawy, czajnik, toster, mikrofalówka</li>
+          <li>Czajnik, toster, mikrofalówka</li>
         </ul>
       </div>
     </div>
@@ -890,7 +1013,7 @@ footer span { color: var(--gold); }
         <ul class="room-features">
           <li>Łóżko małżeńskie (2-osobowe)</li>
           <li>Szafa zabudowana</li>
-          <li>Dostęp do balkonu z meblami</li>
+          <li>Balkon z meblami tarasowymi</li>
           <li>Lampki nocne przy łóżku</li>
           <li>Rolety zaciemniające</li>
         </ul>
@@ -1441,6 +1564,20 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<script>
+function toggleMenu() {
+  const menu = document.getElementById('mobile-menu');
+  const btn  = document.getElementById('hamburger');
+  const open = menu.classList.toggle('open');
+  btn.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+function closeMenu() {
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  document.body.style.overflow = '';
+}
+</script>
 </body>
 </html
 

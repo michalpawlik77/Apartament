@@ -675,18 +675,53 @@ body {
     <!-- ── TAB: CONTENT ── -->
     <div class="tab-panel" id="tab-content">
       <h1 class="panel-title">Edycja <em>treści</em></h1>
-      <p class="panel-desc">Zmieniaj teksty widoczne na stronie. Kliknij „Zapisz zmiany" po zakończeniu edycji — zaktualizowane treści pojawią się od razu na stronie.</p>
+      <p class="panel-desc">Zmieniaj teksty widoczne na stronie. Kliknij „Zapisz" przy każdej sekcji po zakończeniu edycji.</p>
 
+      <!-- HERO -->
       <div class="card">
         <div class="card-title">🏠 Sekcja główna (Hero)</div>
         <div class="field-group">
-          <label>Opis w sekcji głównej (pod tytułem)</label>
-          <textarea id="f-hero_desc" rows="3" placeholder="Zapraszamy na chwilę wytchnienia..."></textarea>
+          <label>Tekst nad tytułem</label>
+          <input type="text" id="f-hero_eyebrow" placeholder="Międzyzdroje · Bałtyk · Wypoczynek">
         </div>
-        <button class="btn-save" onclick="saveContent('hero_desc','f-hero_desc')">Zapisz zmiany</button>
-        <span class="save-indicator" id="si-hero_desc">✓ Zapisano</span>
+        <div class="field-group">
+          <label>Podtytuł</label>
+          <input type="text" id="f-hero_subtitle" placeholder="Wymarzone wakacje nad polskim morzem">
+        </div>
+        <div class="field-group">
+          <label>Opis (pod podtytułem)</label>
+          <textarea id="f-hero_desc" rows="3"></textarea>
+        </div>
+        <button class="btn-save" onclick="saveContentMulti(['hero_eyebrow','f-hero_eyebrow','hero_subtitle','f-hero_subtitle','hero_desc','f-hero_desc'],'si-hero')">Zapisz</button>
+        <span class="save-indicator" id="si-hero">✓ Zapisano</span>
       </div>
 
+      <!-- BADGES -->
+      <div class="card">
+        <div class="card-title">🏷️ Znaczniki (badges) w Hero</div>
+        <div class="two-col">
+          <div class="field-group">
+            <label>Znacznik 1</label>
+            <input type="text" id="f-badge1" placeholder="🏖️ Plaża 300 m">
+          </div>
+          <div class="field-group">
+            <label>Znacznik 2</label>
+            <input type="text" id="f-badge2" placeholder="👨‍👩‍👧‍👦 Dla 4–6 osób">
+          </div>
+          <div class="field-group">
+            <label>Znacznik 3</label>
+            <input type="text" id="f-badge3" placeholder="🅿️ Prywatny parking">
+          </div>
+          <div class="field-group">
+            <label>Znacznik 4</label>
+            <input type="text" id="f-badge4" placeholder="🛗 Winda">
+          </div>
+        </div>
+        <button class="btn-save" onclick="saveContentMulti(['badge1','f-badge1','badge2','f-badge2','badge3','f-badge3','badge4','f-badge4'],'si-badges')">Zapisz</button>
+        <span class="save-indicator" id="si-badges">✓ Zapisano</span>
+      </div>
+
+      <!-- O APARTAMENCIE -->
       <div class="card">
         <div class="card-title">📖 O apartamencie</div>
         <div class="field-group">
@@ -697,47 +732,123 @@ body {
           <label>Akapit 2</label>
           <textarea id="f-about_p2" rows="3"></textarea>
         </div>
-        <button class="btn-save" onclick="saveContentMulti(['about_p1','f-about_p1','about_p2','f-about_p2'],'si-about')">Zapisz zmiany</button>
+        <button class="btn-save" onclick="saveContentMulti(['about_p1','f-about_p1','about_p2','f-about_p2'],'si-about')">Zapisz</button>
         <span class="save-indicator" id="si-about">✓ Zapisano</span>
       </div>
 
+      <!-- STATYSTYKI -->
+      <div class="card">
+        <div class="card-title">📊 Statystyki (liczby pod opisem)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:1rem;">
+          <div class="field-group">
+            <label>Liczba 1</label>
+            <input type="text" id="f-stat1_num" placeholder="4–6">
+          </div>
+          <div class="field-group">
+            <label>Opis 1</label>
+            <input type="text" id="f-stat1_label" placeholder="Osób">
+          </div>
+          <div class="field-group">
+            <label>Liczba 2</label>
+            <input type="text" id="f-stat2_num" placeholder="300m">
+          </div>
+          <div class="field-group">
+            <label>Opis 2</label>
+            <input type="text" id="f-stat2_label" placeholder="Do plaży">
+          </div>
+          <div class="field-group">
+            <label>Liczba 3</label>
+            <input type="text" id="f-stat3_num" placeholder="2">
+          </div>
+          <div class="field-group">
+            <label>Opis 3</label>
+            <input type="text" id="f-stat3_label" placeholder="Sypialnie">
+          </div>
+          <div class="field-group">
+            <label>Liczba 4</label>
+            <input type="text" id="f-stat4_num" placeholder="450m">
+          </div>
+          <div class="field-group">
+            <label>Opis 4</label>
+            <input type="text" id="f-stat4_label" placeholder="Do mola">
+          </div>
+        </div>
+        <button class="btn-save" onclick="saveContentMulti(['stat1_num','f-stat1_num','stat1_label','f-stat1_label','stat2_num','f-stat2_num','stat2_label','f-stat2_label','stat3_num','f-stat3_num','stat3_label','f-stat3_label','stat4_num','f-stat4_num','stat4_label','f-stat4_label'],'si-stats')">Zapisz</button>
+        <span class="save-indicator" id="si-stats">✓ Zapisano</span>
+      </div>
+
+      <!-- REGULAMIN -->
+      <div class="card">
+        <div class="card-title">📋 Regulamin pobytu</div>
+        <div class="field-group">
+          <label>Godziny doby hotelowej</label>
+          <textarea id="f-rule1_text" rows="2"></textarea>
+        </div>
+        <div class="field-group">
+          <label>Zakaz palenia</label>
+          <textarea id="f-rule2_text" rows="2"></textarea>
+        </div>
+        <div class="field-group">
+          <label>Zwierzęta</label>
+          <textarea id="f-rule3_text" rows="2"></textarea>
+        </div>
+        <div class="field-group">
+          <label>Monitoring / Parking</label>
+          <textarea id="f-rule4_text" rows="2"></textarea>
+        </div>
+        <button class="btn-save" onclick="saveContentMulti(['rule1_text','f-rule1_text','rule2_text','f-rule2_text','rule3_text','f-rule3_text','rule4_text','f-rule4_text'],'si-rules')">Zapisz</button>
+        <span class="save-indicator" id="si-rules">✓ Zapisano</span>
+      </div>
+
+      <!-- ATRAKCJE -->
+      <div class="card">
+        <div class="card-title">🗺️ Atrakcje w okolicy (9 pozycji)</div>
+        <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:1.2rem;">Możesz użyć dowolnego emoji jako ikony. Np: 🏖️ 🌊 🏊 🌲 ⭐ 🎡 🦌 🔭 ⚓ 🎠 🎪 🏄</p>
+        <div id="attractions-editor"></div>
+        <button class="btn-save" onclick="saveAttractions()">Zapisz atrakcje</button>
+        <span class="save-indicator" id="si-attractions">✓ Zapisano</span>
+      </div>
+
+      <!-- KONTAKT -->
       <div class="card">
         <div class="card-title">📞 Dane kontaktowe</div>
+        <div class="field-group">
+          <label>Tekst wprowadzający</label>
+          <textarea id="f-contact_desc" rows="2"></textarea>
+        </div>
         <div class="two-col">
           <div class="field-group">
             <label>Numer telefonu</label>
             <input type="tel" id="f-contact_tel" placeholder="502 752 819">
           </div>
+          <div class="field-group">
+            <label>E-mail</label>
+            <input type="email" id="f-contact_email" placeholder="gryfbaltic@gmail.com">
+          </div>
         </div>
-        <button class="btn-save" onclick="saveContent('contact_tel','f-contact_tel')">Zapisz zmiany</button>
-        <span class="save-indicator" id="si-contact_tel">✓ Zapisano</span>
+        <div class="field-group">
+          <label>Adres</label>
+          <textarea id="f-contact_address" rows="2"></textarea>
+        </div>
+        <button class="btn-save" onclick="saveContentMulti(['contact_desc','f-contact_desc','contact_tel','f-contact_tel','contact_email','f-contact_email','contact_address','f-contact_address'],'si-contact')">Zapisz</button>
+        <span class="save-indicator" id="si-contact">✓ Zapisano</span>
       </div>
 
+      <!-- CENNIK -->
       <div class="card">
-        <div class="card-title">💰 Cennik (opcjonalny)</div>
-        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:1rem;">Tekst cennika lub informacji o cenie widoczny na stronie (jeśli używasz tego pola).</p>
+        <div class="card-title">💰 Cennik</div>
         <div class="field-group">
-          <label>Tekst cennika</label>
-          <textarea id="f-pricing_text" rows="4" placeholder="Ceny od ... zł za dobę. Kontakt telefoniczny lub e-mailowy."></textarea>
+          <label>Informacja o cenie</label>
+          <textarea id="f-pricing_text" rows="3" placeholder="Ceny od ... zł za dobę. Sezon letni: ... zł."></textarea>
         </div>
-        <button class="btn-save" onclick="saveContent('pricing_text','f-pricing_text')">Zapisz zmiany</button>
+        <button class="btn-save" onclick="saveContent('pricing_text','f-pricing_text')">Zapisz</button>
         <span class="save-indicator" id="si-pricing_text">✓ Zapisano</span>
       </div>
 
-      <div class="card" id="file-protocol-warning" style="border:2px solid #ffd54f;background:#fffde7;display:none;">
-        <div class="card-title" style="color:#e65100;">⚠️ Tryb lokalny (file://) — wymagany eksport</div>
-        <p style="font-size:0.85rem;color:#7a3a00;line-height:1.8;margin-bottom:1rem;">Strona działa lokalnie z dysku. W tym trybie <strong>admin.html i index.html nie dzielą localStorage</strong> — zmiany nie trafią automatycznie na stronę.<br><br>
-        <strong>Jak to naprawić:</strong><br>
-        1. Po zmianach kliknij <strong>„Eksportuj dane"</strong> poniżej<br>
-        2. Zapisz plik <code>gryf_data.json</code> w tym samym folderze co <code>index.html</code><br>
-        3. Strona główna automatycznie go wczyta<br><br>
-        Docelowo wgraj oba pliki na hosting — wtedy synchronizacja działa sama.</p>
-        <button class="btn-save" style="background:#e65100;" onclick="exportData()">⬇ Eksportuj dane (gryf_data.json)</button>
-      </div>
-
+      <!-- EKSPORT -->
       <div class="card" style="border:1.5px solid #ffeeba;background:#fffdf5;">
         <div class="card-title" style="color:#b8860b;">💾 Eksport / Import danych</div>
-        <p style="font-size:0.85rem;color:#7a6000;line-height:1.7;margin-bottom:1rem;">Eksportuj dane kalendarza do pliku JSON — przenieś je na inne urządzenie lub wykonaj kopię zapasową. Możesz też zaimportować wcześniej zapisany plik.</p>
+        <p style="font-size:0.85rem;color:#7a6000;line-height:1.7;margin-bottom:1rem;">Kopia zapasowa danych lub przeniesienie na inne urządzenie.</p>
         <div style="display:flex;gap:0.8rem;flex-wrap:wrap;align-items:center;">
           <button class="btn-save" style="background:#c9a96e;color:#1a3a5c;" onclick="exportData()">⬇ Eksportuj dane</button>
           <label class="btn-save" style="background:#555;cursor:pointer;display:inline-block;">⬆ Importuj dane<input type="file" accept=".json" onchange="importData(event)" style="display:none;"></label>
@@ -1055,12 +1166,69 @@ function buildMiniMonth(yr, mo, cal, today) {
 // CONTENT EDITING
 // ══════════════════════════════════════════════
 const CONTENT_DEFAULTS = {
+  hero_eyebrow: 'Międzyzdroje · Bałtyk · Wypoczynek',
+  hero_subtitle: 'Wymarzone wakacje nad polskim morzem',
   hero_desc: 'Zapraszamy na chwilę wytchnienia. Gwarantujemy mnóstwo przestrzeni i domową atmosferę. Zaledwie 300 metrów dzieli Was od szerokiej, piaszczystej plaży.',
+  badge1: '🏖️ Plaża 300 m', badge2: '👨‍👩‍👧‍👦 Dla 4–6 osób', badge3: '🅿️ Prywatny parking', badge4: '🛗 Winda',
   about_p1: 'Nasz apartament to idealne miejsce na rodzinne wakacje nad Bałtykiem. Przestronny, w pełni wyposażony, z domową atmosferą i wyjątkowym widokiem z balkonu.',
   about_p2: 'Zlokalizowany na II piętrze nowoczesnego budynku nad Pasażem Handlowym Gryf, zapewnia doskonałe połączenie wygody i bliskości zarówno plaży, jak i pełnej infrastruktury miejskiej.',
+  stat1_num: '4–6', stat1_label: 'Osób',
+  stat2_num: '300m', stat2_label: 'Do plaży',
+  stat3_num: '2', stat3_label: 'Sypialnie',
+  stat4_num: '450m', stat4_label: 'Do mola',
+  rule1_text: 'Zameldowanie od godziny <strong>16:00</strong> w dniu przyjazdu.<br>Wymeldowanie do godziny <strong>10:00</strong> w dniu wyjazdu.',
+  rule2_text: 'W całym obiekcie obowiązuje <strong>zakaz palenia</strong> tytoniu i e-papierosów. Obiekt jest monitorowany.',
+  rule3_text: 'Przepraszamy, w naszym apartamencie <strong>nie przyjmujemy zwierząt</strong>. Dziękujemy za zrozumienie.',
+  rule4_text: 'Obiekt i okolica są objęte <strong>monitoringiem</strong>. Prywatne miejsce parkingowe z podglądem z okien apartamentu.',
+  attr1_icon: '🦌', attr1_title: 'Rezerwat Żubrów', attr1_desc: 'Jedyny na Pomorzu rezerwat dzikich żubrów w naturalnym środowisku Wolińskiego Parku Narodowego',
+  attr2_icon: '⭐', attr2_title: 'Promenada Gwiazd', attr2_desc: 'Nadmorski deptak z gwiazdami polskiego kina, idealne miejsce na wieczorny spacer',
+  attr3_icon: '🏊', attr3_title: 'Jezioro Turkusowe', attr3_desc: 'Niesamowite jezioro o turkusowym kolorze wody — must-see w okolicach Międzyzdrojów',
+  attr4_icon: '⛳', attr4_title: 'Pole Golfowe', attr4_desc: '18-dołkowe pole golfowe z pięknym widokiem na Bałtyk',
+  attr5_icon: '🌲', attr5_title: 'Woliński Park Narodowy', attr5_desc: 'Jeden z najpiękniejszych polskich parków narodowych — klify, lasy i unikalna przyroda',
+  attr6_icon: '⚓', attr6_title: 'Przystań Rybacka', attr6_desc: 'Klimatyczna przystań z tradycją rybacką, świeżymi rybami i spektakularnym widokiem',
+  attr7_icon: '🌊', attr7_title: 'Molo w Międzyzdrojach', attr7_desc: 'Jedno z najdłuższych moli na polskim wybrzeżu, idealne na poranny lub wieczorny spacer',
+  attr8_icon: '🔭', attr8_title: 'Wzgórze Gosań', attr8_desc: 'Punkt widokowy z panoramą Zalewu Szczecińskiego i okolicznych wysp',
+  attr9_icon: '🐚', attr9_title: 'Muzeum Przyrodnicze', attr9_desc: 'Interesująca ekspozycja poświęcona przyrodzie Wolińskiego Parku Narodowego',
+  contact_desc: 'Zapytania o cennik i dostępność terminów prosimy kierować telefonicznie lub mailowo. Odpowiemy tak szybko jak to możliwe!',
   contact_tel: '502 752 819',
+  contact_email: 'gryfbaltic@gmail.com',
+  contact_address: 'ul. Gryfa Pomorskiego 23/206\n72-500 Międzyzdroje',
   pricing_text: ''
 };
+
+function buildAttractionsEditor(content) {
+  const container = document.getElementById('attractions-editor');
+  if (!container) return;
+  container.innerHTML = '';
+  for (let i = 1; i <= 9; i++) {
+    const row = document.createElement('div');
+    row.style.cssText = 'display:grid;grid-template-columns:64px 1fr 2fr;gap:0.8rem;align-items:end;margin-bottom:0.8rem;padding-bottom:0.8rem;border-bottom:1px solid var(--border);';
+    row.innerHTML = `
+      <div class="field-group" style="margin:0">
+        <label>Ikona ${i}</label>
+        <input type="text" id="f-attr${i}_icon" value="${content['attr'+i+'_icon'] || CONTENT_DEFAULTS['attr'+i+'_icon'] || ''}" style="text-align:center;font-size:1.3rem;padding:0.5rem;">
+      </div>
+      <div class="field-group" style="margin:0">
+        <label>Nazwa ${i}</label>
+        <input type="text" id="f-attr${i}_title" value="${(content['attr'+i+'_title'] || CONTENT_DEFAULTS['attr'+i+'_title'] || '').replace(/"/g,'&quot;')}">
+      </div>
+      <div class="field-group" style="margin:0">
+        <label>Opis ${i}</label>
+        <input type="text" id="f-attr${i}_desc" value="${(content['attr'+i+'_desc'] || CONTENT_DEFAULTS['attr'+i+'_desc'] || '').replace(/"/g,'&quot;')}">
+      </div>`;
+    container.appendChild(row);
+  }
+}
+
+async function saveAttractions() {
+  const pairs = [];
+  for (let i = 1; i <= 9; i++) {
+    pairs.push('attr'+i+'_icon', 'f-attr'+i+'_icon',
+               'attr'+i+'_title', 'f-attr'+i+'_title',
+               'attr'+i+'_desc', 'f-attr'+i+'_desc');
+  }
+  await saveContentMulti(pairs, 'si-attractions');
+}
 
 async function loadContentFields() {
   const d = await getData();
@@ -1069,6 +1237,7 @@ async function loadContentFields() {
     const el = document.getElementById('f-' + key);
     if (el) el.value = content[key] !== undefined ? content[key] : def;
   }
+  buildAttractionsEditor(content);
 }
 
 async function saveContent(key, fieldId) {

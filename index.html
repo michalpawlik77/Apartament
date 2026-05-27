@@ -1428,6 +1428,92 @@ footer span { color: var(--gold); }
   </div>
 </section>
 
+<!-- REGULAMIN -->
+<section style="padding:3rem 0;background:#f5f0ea;">
+  <div class="container" style="max-width:860px;">
+    <div style="text-align:center;margin-bottom:1.5rem;">
+      <button id="regulamin-btn" onclick="toggleRegulamin()" style="
+        background:var(--ocean);
+        color:white;
+        border:none;
+        padding:1rem 2.5rem;
+        font-family:'Outfit',sans-serif;
+        font-size:0.78rem;
+        font-weight:500;
+        letter-spacing:0.22em;
+        text-transform:uppercase;
+        cursor:pointer;
+        border-radius:3px;
+        display:inline-flex;
+        align-items:center;
+        gap:0.9rem;
+        transition:background 0.2s, transform 0.15s;
+        box-shadow:0 4px 20px rgba(26,58,92,0.18);
+      ">
+        <span>Regulamin apartamentu</span>
+        <span id="regulamin-arrow" style="display:inline-block;transition:transform 0.4s;font-size:1rem;">↓</span>
+      </button>
+    </div>
+
+    <div id="regulamin-content" style="
+      max-height:0;
+      overflow:hidden;
+      transition:max-height 0.6s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease;
+      opacity:0;
+    ">
+      <div style="
+        background:white;
+        border-radius:4px;
+        padding:2.5rem;
+        box-shadow:0 4px 32px rgba(26,58,92,0.08);
+        border-top:3px solid var(--gold);
+      ">
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--ocean);margin-bottom:0.4rem;">Regulamin</h3>
+        <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem;">Apartament Gryf Baltic · Międzyzdroje</p>
+        <ol style="padding-left:1.4rem;color:#333;line-height:1.85;font-size:0.9rem;display:flex;flex-direction:column;gap:0.9rem;">
+          <li data-editable="reg1">Doba hotelowa rozpoczyna się o godzinie <strong>16:00</strong> i kończy o godzinie <strong>10:00</strong>. Prosimy do tego czasu o zwolnienie apartamentu i umieszczenie klucza do drzwi wejściowych w sejfie. Pozostały komplet kluczy proszę zostawić na stole w salonie. Za niewymeldowanie się do godziny 10:00 (bez uprzedniego ustalenia z właścicielem mieszkania), będzie pobrana opłata dodatkowa w wysokości kolejnej doby hotelowej bez prawa do zamieszkania.</li>
+          <li data-editable="reg2">Należy przestrzegać ciszy nocnej, która obowiązuje w godzinach <strong>22:00–6:00</strong>. Jeżeli przyjmują Państwo gości, są oni proszeni o opuszczenie lokalu przed godziną 22:00. W przypadku zignorowania tej zasady będziemy zmuszeni obciążyć Państwo opłatą dodatkową w wysokości pobytu dodatkowej liczby osób w apartamencie.</li>
+          <li data-editable="reg3">W przypadku szczególnego nieutrzymania czystości, które skutkować będzie wykonaniem dodatkowych prac przez personel sprzątający przekraczających 2 godziny, Gość zostanie obciążony opłatą dodatkową w wysokości <strong>150 zł</strong> za każdą dodatkową godzinę pracy personelu sprzątającego.</li>
+          <li data-editable="reg4">Zabrania się organizowania imprez zakłócających porządek w budynku i będących przyczyną skarg mieszkańców bądź wezwania policji. W takim przypadku Gość zostanie obciążony opłatą dodatkową w wysokości <strong>500 zł</strong>. Obsługa ma prawo do odstąpienia od umowy najmu ze skutkiem natychmiastowym z zachowaniem pełnej opłaty.</li>
+          <li data-editable="reg5">Osoba wynajmująca odpowiada za zachowanie współlokatorów oraz wszelkie szkody powstałe z winy użytkowników. Prosimy po zameldowaniu sprawdzić apartament i ewentualne uszkodzenia zgłosić telefonicznie lub mailowo. Brak zgłoszenia oznacza akceptację stanu apartamentu.</li>
+          <li data-editable="reg6">Palenie tytoniu, wyrobów tytoniowo-podobnych oraz świec w apartamencie jest <strong>zabronione</strong>. Złamanie zakazu skutkuje opłatą dodatkową w wysokości <strong>500 zł</strong>.</li>
+          <li data-editable="reg7">Prosimy pamiętać o zamykaniu drzwi i okien przy wychodzeniu z apartamentu. Nie ponosimy odpowiedzialności za kradzieże spowodowane niewłaściwym zabezpieczeniem mieszkania.</li>
+          <li data-editable="reg8">Goście zostaną obciążeni opłatami wynikającymi z kosztów napraw zniszczeń wyposażenia niewynikających z normalnego użytkowania apartamentu.</li>
+          <li data-editable="reg9">W przypadku notorycznego zachowania niezgodnego z regulaminem właściciel ma prawo wymeldować Gościa nie zwracając opłaty za wynajem.</li>
+          <li data-editable="reg10">W przypadku rezygnacji z rezerwacji lub jej części w trakcie pobytu, płatności nie podlegają zwrotowi.</li>
+          <li data-editable="reg11">Nieuzasadnione wezwanie obsługi skutkuje opłatą dodatkową w wysokości <strong>200 zł</strong>.</li>
+          <li data-editable="reg12">Zgubienie klucza do drzwi wejściowych wiąże się z wymianą całego zamka i opłatą <strong>500 zł</strong>. Zgubienie pozostałych kluczy (parking, śmietnik, klatka): <strong>50 zł/szt.</strong></li>
+          <li data-editable="reg13">Przyjazd z psem/kotem dopuszczalny jedynie za zgodą właściciela i podlega opłacie <strong>100 zł/doba</strong>. W przypadku zatajenia przyjazdu ze zwierzęciem zostanie pobrana opłata 100 zł/doba + <strong>400 zł</strong> opłaty karnej.</li>
+          <li data-editable="reg14">W celu dokonania rezerwacji należy wpłacić <strong>30%</strong> całkowitej wartości pobytu w ciągu 2 dni od momentu rezerwacji. Pozostałą kwotę należy wpłacić na 2 dni przed planowanym przyjazdem.</li>
+          <li data-editable="reg15">Rezygnacja z pobytu na <strong>14 dni</strong> przed planowanym przyjazdem skutkuje utratą wpłaconej zaliczki (30%).</li>
+          <li data-editable="reg16">Odwołanie rezerwacji na dzień przed przyjazdem lub niestawienie się w obiekcie skutkuje przepadkiem <strong>pełnej kwoty</strong> rezerwacji.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+function toggleRegulamin() {
+  const content = document.getElementById('regulamin-content');
+  const arrow   = document.getElementById('regulamin-arrow');
+  const btn     = document.getElementById('regulamin-btn');
+  const isOpen  = content.style.maxHeight !== '0px' && content.style.maxHeight !== '';
+
+  if (isOpen) {
+    content.style.maxHeight = '0px';
+    content.style.opacity   = '0';
+    arrow.style.transform   = 'rotate(0deg)';
+    btn.style.background    = 'var(--ocean)';
+  } else {
+    content.style.maxHeight = content.scrollHeight + 200 + 'px';
+    content.style.opacity   = '1';
+    arrow.style.transform   = 'rotate(180deg)';
+    btn.style.background    = 'var(--ocean-light)';
+  }
+}
+</script>
+
 <!-- FOOTER -->
 <footer>
   <p>© 2024 <span>Apartament Gryf Baltic</span> · Międzyzdroje · Wszystkie prawa zastrzeżone</p>
@@ -1555,6 +1641,7 @@ document.addEventListener('DOMContentLoaded', function() {
   .then(r => r.ok ? r.json() : null)
   .then(data => {
     if (!data || !data.record) return;
+    // Treści ogólne
     const content = data.record.content || {};
     document.querySelectorAll('[data-editable]').forEach(function(el) {
       var key = el.getAttribute('data-editable');
@@ -1562,6 +1649,14 @@ document.addEventListener('DOMContentLoaded', function() {
         el.innerHTML = content[key];
       }
     });
+    // Regulamin
+    const reg = data.record.regulamin;
+    if (reg && Array.isArray(reg)) {
+      for (var i = 0; i < reg.length; i++) {
+        var li = document.querySelector('[data-editable="reg' + (i+1) + '"]');
+        if (li && reg[i]) li.innerHTML = reg[i];
+      }
+    }
   })
   .catch(() => {});
 });

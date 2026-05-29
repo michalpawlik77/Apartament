@@ -54,16 +54,80 @@ nav.scrolled {
   color: white; line-height: 1.2;
   text-transform: uppercase;
 }
-.nav-links {
-  display: flex; gap: 2.5rem; list-style: none;
+.nav-links { display: none; }
+
+/* ── HAMBURGER BUTTON (desktop + mobile) ── */
+.nav-hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 5px;
+  z-index: 1001;
+  position: relative;
 }
-.nav-links a {
-  color: rgba(255,255,255,0.85); text-decoration: none;
-  font-size: 0.78rem; font-weight: 400; letter-spacing: 0.18em;
+.nav-hamburger span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s, background 0.2s;
+}
+.nav-hamburger:hover span { background: var(--gold); }
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── DROPDOWN MENU ── */
+.nav-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: rgba(20,44,74,0.97);
+  backdrop-filter: blur(16px);
+  border-top: 2px solid var(--gold);
+  min-width: 220px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 1000;
+}
+.nav-dropdown.open {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+.nav-dropdown a {
+  display: block;
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  transition: color 0.2s;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  transition: color 0.2s, background 0.2s, padding-left 0.2s;
 }
-.nav-links a:hover { color: var(--gold); }
+.nav-dropdown a:last-child { border-bottom: none; }
+.nav-dropdown a:hover {
+  color: var(--gold);
+  background: rgba(255,255,255,0.04);
+  padding-left: 2rem;
+}
+
+/* ── NAV WRAPPER position relative for dropdown ── */
+.nav-menu-wrapper {
+  position: relative;
+}
 
 /* HERO */
 .hero {
@@ -616,50 +680,6 @@ footer span { color: var(--gold); }
 @media (max-width: 900px) {
   /* ── NAV ── */
   nav { padding: 1rem 1.2rem; }
-  .nav-links { display: none; }
-
-  /* ── HAMBURGER ── */
-  .nav-hamburger {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    width: 36px;
-    height: 36px;
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 4px;
-    z-index: 1001;
-  }
-  .nav-hamburger span {
-    display: block;
-    width: 100%;
-    height: 2px;
-    background: white;
-    border-radius: 2px;
-    transition: transform 0.3s, opacity 0.3s;
-  }
-  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
-  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-  /* ── MOBILE MENU LINKS ── */
-  .mobile-menu a {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
-    font-weight: 300;
-    color: white;
-    text-decoration: none;
-    letter-spacing: 0.08em;
-    padding: 0.8rem 2rem;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    width: 100%;
-    text-align: center;
-    transition: color 0.2s;
-  }
-  .mobile-menu a:last-child { border-bottom: none; }
-  .mobile-menu a:active { color: var(--gold); }
 
   /* ── HERO ── */
   .hero { min-height: 100svh; }
@@ -736,10 +756,8 @@ footer span { color: var(--gold); }
   footer { padding: 1.5rem 1.2rem; font-size: 0.78rem; text-align: center; }
 }
 
-/* hamburger hidden on desktop */
-.nav-hamburger { display: none; }
-.mobile-menu { display: flex; flex-direction: column; align-items: center; justify-content: center; position: fixed; inset: 0; background: var(--ocean); z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.35s; gap: 0; }
-.mobile-menu.open { opacity: 1; pointer-events: all; }
+/* hamburger hidden on desktop - now always visible */
+
 .location-slideshow {
   position: relative;
   overflow: hidden;
@@ -805,28 +823,21 @@ footer span { color: var(--gold); }
     <img src="images/photo_01.jpg" alt="Gryf Baltic logo">
     <div class="nav-logo-text">Apartament<br>Gryf Baltic</div>
   </div>
-  <ul class="nav-links">
-    <li><a href="#o-apartamencie">Apartament</a></li>
-    <li><a href="#galeria">Galeria</a></li>
-    <li><a href="#udogodnienia">Udogodnienia</a></li>
-    <li><a href="#lokalizacja">Lokalizacja</a></li>
-    <li><a href="#dostepnosc">Dostępność</a></li>
-    <li><a href="#kontakt">Kontakt</a></li>
-  </ul>
-  <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <div class="nav-menu-wrapper">
+    <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-dropdown" id="nav-dropdown">
+      <a href="#o-apartamencie" onclick="closeMenu()">Apartament</a>
+      <a href="#galeria" onclick="closeMenu()">Galeria</a>
+      <a href="#udogodnienia" onclick="closeMenu()">Udogodnienia</a>
+      <a href="#lokalizacja" onclick="closeMenu()">Lokalizacja</a>
+      <a href="#dostepnosc" onclick="closeMenu()">Dostępność</a>
+      <a href="#kontakt" onclick="closeMenu()">Kontakt</a>
+      <a href="#regulamin" onclick="closeMenu()">Regulamin</a>
+    </div>
+  </div>
 </nav>
-
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobile-menu">
-  <a href="#o-apartamencie" onclick="closeMenu()">Apartament</a>
-  <a href="#galeria" onclick="closeMenu()">Galeria</a>
-  <a href="#udogodnienia" onclick="closeMenu()">Udogodnienia</a>
-  <a href="#lokalizacja" onclick="closeMenu()">Lokalizacja</a>
-  <a href="#dostepnosc" onclick="closeMenu()">Dostępność</a>
-  <a href="#kontakt" onclick="closeMenu()">Kontakt</a>
-</div>
 
 <!-- HERO -->
 <section class="hero" id="home">
@@ -1033,7 +1044,7 @@ footer span { color: var(--gold); }
           <li>Łóżko małżeńskie dwuosobowe</li>
           <li>Szafa z lustrzanymi drzwiami</li>
           <li>Okno z dostępem światła dziennego</li>
-          <li>Lampki nocne przy łóżku</li>
+          <li>Kinkiet przy łóżku</li>
         </ul>
       </div>
     </div>
@@ -1402,7 +1413,7 @@ footer span { color: var(--gold); }
 </section>
 
 <!-- REGULAMIN -->
-<section style="padding:3rem 0;background:#f5f0ea;">
+<section id="regulamin" style="padding:3rem 0;background:#f5f0ea;">
   <div class="container" style="max-width:860px;">
     <div style="text-align:center;margin-bottom:1.5rem;">
       <button id="regulamin-btn" onclick="toggleRegulamin()" style="
@@ -1455,7 +1466,7 @@ footer span { color: var(--gold); }
           <li data-editable="reg9">W przypadku notorycznego zachowania niezgodnego z regulaminem właściciel ma prawo wymeldować Gościa nie zwracając opłaty za wynajem.</li>
           <li data-editable="reg10">W przypadku rezygnacji z rezerwacji lub jej części w trakcie pobytu, płatności nie podlegają zwrotowi.</li>
           <li data-editable="reg11">Nieuzasadnione wezwanie obsługi skutkuje opłatą dodatkową w wysokości <strong>200 zł</strong>.</li>
-          <li data-editable="reg12">Zgubienie klucza do drzwi wejściowych wiąże się z wymianą całego zamka i opłatą <strong>500 zł</strong>. Zgubienie pozostałych kluczy : <strong>50 zł/szt.</strong></li>
+          <li data-editable="reg12">Zgubienie klucza do drzwi wejściowych wiąże się z wymianą całego zamka i opłatą <strong>500 zł</strong>. Zgubienie pozostałych kluczy (parking, śmietnik, klatka): <strong>50 zł/szt.</strong></li>
           <li data-editable="reg13">Przyjazd z psem/kotem dopuszczalny jedynie za zgodą właściciela i podlega opłacie <strong>100 zł/doba</strong>. W przypadku zatajenia przyjazdu ze zwierzęciem zostanie pobrana opłata 100 zł/doba + <strong>400 zł</strong> opłaty karnej.</li>
           <li data-editable="reg14">W celu dokonania rezerwacji należy wpłacić <strong>30%</strong> całkowitej wartości pobytu w ciągu 2 dni od momentu rezerwacji. Pozostałą kwotę należy wpłacić na 2 dni przed planowanym przyjazdem.</li>
           <li data-editable="reg15">Rezygnacja z pobytu na <strong>14 dni</strong> przed planowanym przyjazdem skutkuje utratą wpłaconej zaliczki (30%).</li>
@@ -1637,17 +1648,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script>
 function toggleMenu() {
-  const menu = document.getElementById('mobile-menu');
-  const btn  = document.getElementById('hamburger');
-  const open = menu.classList.toggle('open');
-  btn.classList.toggle('open', open);
-  document.body.style.overflow = open ? 'hidden' : '';
+  const dropdown = document.getElementById('nav-dropdown');
+  const btn = document.getElementById('hamburger');
+  const isOpen = dropdown.classList.toggle('open');
+  btn.classList.toggle('open', isOpen);
 }
 function closeMenu() {
-  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('nav-dropdown').classList.remove('open');
   document.getElementById('hamburger').classList.remove('open');
-  document.body.style.overflow = '';
 }
+// Zamknij po kliknięciu poza menu
+document.addEventListener('click', function(e) {
+  const wrapper = document.querySelector('.nav-menu-wrapper');
+  if (wrapper && !wrapper.contains(e.target)) closeMenu();
+});
 </script>
 </body>
-</html>
+</html
+
+
+>

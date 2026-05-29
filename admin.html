@@ -1220,14 +1220,15 @@ const REGULAMIN_DEFAULTS = [
   'Przyjazd z psem/kotem dopuszczalny jedynie za zgodą właściciela i podlega opłacie <strong>100 zł/doba</strong>. W przypadku zatajenia przyjazdu ze zwierzęciem zostanie pobrana opłata 100 zł/doba + <strong>400 zł</strong> opłaty karnej.',
   'W celu dokonania rezerwacji należy wpłacić <strong>30%</strong> całkowitej wartości pobytu w ciągu 2 dni od momentu rezerwacji. Pozostałą kwotę należy wpłacić na 2 dni przed planowanym przyjazdem.',
   'Rezygnacja z pobytu na <strong>14 dni</strong> przed planowanym przyjazdem skutkuje utratą wpłaconej zaliczki (30%).',
-  'Odwołanie rezerwacji na dzień przed przyjazdem lub niestawienie się w obiekcie skutkuje przepadkiem <strong>pełnej kwoty</strong> rezerwacji.'
+  'Odwołanie rezerwacji na dzień przed przyjazdem lub niestawienie się w obiekcie skutkuje przepadkiem <strong>pełnej kwoty</strong> rezerwacji.',
+  'W chwili opłaty całkowitej za rezerwację, należy wpłacić na konto dodatkową kwotę w wysokości <strong>300 zł</strong> (tzw. „Kaucja zwrotna"), jako zabezpieczenie na wypadek zniszczeń. Kaucja będzie zwracana bezwłocznie na konto Gościa po wymeldowaniu i sprawdzeniu stanu apartamentu przez personel sprzątający w ciągu <strong>24–48 godzin</strong>. Jeśli dojdzie do zniszczeń, zostanie odjęty udowodniony koszt naprawy, a pozostała kwota niezwłocznie przekazana na konto Gościa.'
 ];
 
 function buildRegulaminEditor(regData) {
   const container = document.getElementById('regulamin-editor');
   if (!container) return;
   container.innerHTML = '';
-  for (let i = 0; i < 16; i++) {
+  for (let i = 0; i < 17; i++) {
     const val = (regData && regData[i] !== undefined) ? regData[i] : REGULAMIN_DEFAULTS[i];
     const wrap = document.createElement('div');
     wrap.className = 'field-group';
@@ -1241,7 +1242,7 @@ function buildRegulaminEditor(regData) {
 async function saveRegulamin() {
   const d = await getData();
   d.regulamin = [];
-  for (let i = 0; i < 16; i++) {
+  for (let i = 0; i < 17; i++) {
     const el = document.getElementById('f-reg' + (i+1));
     if (el) d.regulamin[i] = el.value.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>');
   }
